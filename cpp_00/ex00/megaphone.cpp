@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 using namespace std;
 
 int main(int ac, char **av)
@@ -9,19 +8,19 @@ int main(int ac, char **av)
 
     i = 1;
     if(ac < 2)
-    {
         cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
-        exit(EXIT_FAILURE);
-    }
-    while(i < ac)
+    else
     {
-        j = 0;
-        while(av[i][j] != '\0')
+        while(i < ac)
         {
-            cout << (char)toupper(av[i][j]);
-            j++;
+            j = 0;
+            while(av[i][j] != '\0')
+            {
+                cout << (char)toupper(av[i][j]);
+                j++;
+            }
+            i++;
         }
-        i++;
+        cout << "\n";
     }
-    cout << "\n";
 }
