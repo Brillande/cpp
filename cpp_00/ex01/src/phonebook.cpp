@@ -1,7 +1,15 @@
-#include "phonebook_class.hpp";
-using namespace std;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phonebook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 15:34:28 by emedina-          #+#    #+#             */
+/*   Updated: 2024/09/09 16:40:39 by emedina-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void phonebook (void)
-{
-    phonebook.number_of_contacts
-}
+#include "../includes/phonebook_class.hpp"
+
+

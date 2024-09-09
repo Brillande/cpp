@@ -1,20 +1,30 @@
-#include "phonebook_class.hpp";
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 15:35:28 by emedina-          #+#    #+#             */
+/*   Updated: 2024/09/09 17:35:21 by emedina-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/phonebook_class.hpp"
 using namespace std;
 
-int main (int ac, char **av)
+int main (void)
 {
-	cout << "input ADD, SEARCH or EXIT";
+	string input;
 	while (1)
 	{
-		if(ac == 2)
+		cout << "input ADD, SEARCH or EXIT\n";
+		getline(cin,input);
+		if(input == "EXIT" || input == "exit")
+			exit (EXIT_SUCCESS);
+		else if(input == "ADD" || input == "add")
 		{
-			if(av[1] == "EXIT")
-				exit (EXIT_SUCCESS);
-			else if(av[1] == "ADD")
-			{
-				
-			}
-
-		} 
+			
+		}
 	}
 }
