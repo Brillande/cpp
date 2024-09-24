@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:34:28 by emedina-          #+#    #+#             */
-/*   Updated: 2024/09/20 08:41:38 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:00:16 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ string  add_info(string msg)
     while (1)
     {
         getline(cin, dest);
+        if(cin.eof() == 1)
+        {
+            cout << "\n";
+            exit (EXIT_SUCCESS);
+        }
         dest.erase(0, dest.find_first_not_of(" \t\v\f\r"));
         while (isspace(dest[dest.length() - 1]))
             dest.erase(dest.find_last_not_of(" \t\v\r\f") + 1, dest[dest.length() - 1]);
@@ -207,6 +212,11 @@ void        Phonebook::display(Phonebook phonebook)
     {
         cout << "Please select the index for more info:";
         getline(cin, index);
+        if(cin.eof() == 1)
+        {
+            cout << "\n";
+            exit (EXIT_SUCCESS);
+        }
         index.erase(0, index.find_first_not_of(" \t\v\f\r"));
         while (isspace(index[index.length() - 1]))
             index.erase(index.find_last_not_of(" \t\v\r\f") + 1, index[index.length() - 1]);
