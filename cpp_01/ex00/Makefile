@@ -7,7 +7,7 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := dAccount
+NAME        := zombie
 CC         := c++
 FLAGS    := -Wall -Wextra -Werror -std=c++98
  
@@ -15,8 +15,10 @@ FLAGS    := -Wall -Wextra -Werror -std=c++98
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      Account.cpp \
-                          tests.cpp \
+SRCS        :=      randomChump.cpp \
+                          zombie.cpp \
+                          main.cpp \
+                          newZombie.cpp \
                           
 OBJS        := ${SRCS:.cpp=.o}
 

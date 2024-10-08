@@ -7,7 +7,7 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := dAccount
+NAME        := zombieHorde
 CC         := c++
 FLAGS    := -Wall -Wextra -Werror -std=c++98
  
@@ -15,8 +15,9 @@ FLAGS    := -Wall -Wextra -Werror -std=c++98
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      Account.cpp \
-                          tests.cpp \
+SRCS        :=      zombieHorde.cpp \
+                          zombie.cpp \
+                          main.cpp \
                           
 OBJS        := ${SRCS:.cpp=.o}
 
