@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-class Harl {
+class Harl 
+{
 	public:
 		Harl();
 		~Harl();

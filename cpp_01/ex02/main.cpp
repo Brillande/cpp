@@ -4,7 +4,8 @@ using namespace std;
 
 using namespace std;
 
-int main() {
+int main() 
+{
     string myString = "HI THIS IS BRAIN";
     string *stringPTR = &myString;
 
