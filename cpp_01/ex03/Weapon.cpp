@@ -6,30 +6,28 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:25:19 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:25:20 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:07:23 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-using namespace std;
-
 #include "Weapon.hpp"
 
-Weapon::Weapon(const string &type)
+Weapon::Weapon(const std::string &type)
 {
     this->setType(type);
 }
 
 Weapon::~Weapon()
 {
-    cout << "the weapon "<< getType() << " is broken" << endl;
+    std::cout << "the weapon "<< getType() << " is broken" << std::endl;
 }
 
-string Weapon::getType () const
+std::string Weapon::getType () const
 {
     return (_type);
 }
 
-void Weapon::setType(const string &type)
+void Weapon::setType(const std::string &type)
 {
     this->_type = type;
 }
