@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:34:28 by emedina-          #+#    #+#             */
-/*   Updated: 2024/09/20 10:00:16 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:34:03 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ string  add_info(string msg)
             cout << "\n";
             exit (EXIT_SUCCESS);
         }
+        //Elimina espacios en blanco iniciales y finales:
         dest.erase(0, dest.find_first_not_of(" \t\v\f\r"));
         while (isspace(dest[dest.length() - 1]))
             dest.erase(dest.find_last_not_of(" \t\v\r\f") + 1, dest[dest.length() - 1]);
@@ -55,7 +56,7 @@ string  add_info(string msg)
     }
     return (dest);
 }
-
+// La línea Phonebook Phonebook::add_iterator es la declaración de una función miembro de la clase Phonebook. Aquí está el desglose de lo que significa:
 Phonebook    Phonebook::add_iterator(Phonebook phonebook, int i)
 {
     string first_name;

@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:41:14 by emedina-          #+#    #+#             */
-/*   Updated: 2024/10/04 09:30:11 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:36:18 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int Account::_totalNbWithdrawals = 0;
 
 Account::Account() {}
 
+//Este constructor se invoca cuando se crea un objeto con un depósito inicial
 Account::Account(int initial_deposit)
 {
 	this->_nbDeposits = 0;

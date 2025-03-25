@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:35:36 by emedina-          #+#    #+#             */
-/*   Updated: 2024/09/18 11:25:42 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:31:35 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ void    Contact::print_info(Contact contact, int i)
 {
     if (i == 1)
     {
+       /*  Si el nombre tiene más de 10 caracteres:
+Usa un rango de iteradores (contact.first_name.begin() a contact.first_name.begin() + 9) para tomar los primeros 9 caracteres del nombre.
+Agrega un punto (.) al final para indicar que el nombre fue truncado.
+Ejemplo: Si el nombre es "Christopher", se imprimirá como "Christophe.". */
         if (contact.first_name.size() > 10)
             cout << string(contact.first_name.begin(), contact.first_name.begin() + 9) << '.';
         else
+        /* Si el nombre tiene 10 caracteres o menos:
+Usa setw(10) para alinear el texto a la derecha en un espacio de 10 caracteres.
+Ejemplo: Si el nombre es "John", se imprimirá como "      John" (con espacios a la izquierda). */
             cout << setw(10) << contact.first_name;
     }
     if (i == 2)
