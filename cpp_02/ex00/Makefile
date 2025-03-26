@@ -16,7 +16,7 @@ FLAGS    := -Wall -Wextra -Werror -std=c++98
 ################################################################################
 
 SRCS        :=      Fixed.cpp \
-                          main.cpp \
+                          Main.cpp \
                           
 OBJS        := ${SRCS:.cpp=.o}
 

@@ -1,33 +1,31 @@
 #include "Fixed.hpp"
 
-using namespace std;
-
 Fixed::Fixed() : value(0) 
 {
-	cout << "Default constructor called" << endl;
+	std ::cout << "Default constructor called" << std ::endl;
 }
 
 Fixed::Fixed(Fixed const &src) 
 {
-	cout << "Copy constructor called" << endl;
+	std ::cout << "Copy constructor called" << std ::endl;
 	*this = src;
 }
 
 Fixed::~Fixed() 
 {
-	cout << "Destructor called" << endl;
+	std ::cout << "Destructor called" << std ::endl;
 }
 
 Fixed&	Fixed::operator=(Fixed const &rSym) 
 {
-	cout << "Copy assignement operator called" << endl;
+	std ::cout << "Copy assignement operator called" << std ::endl;
 	this->value = rSym.getRawBits();
 	return *this;
 }
 
 int		Fixed::getRawBits() const 
 {
-	cout << "getRawBits member function called" << endl;
+	std ::cout << "getRawBits member function called" << std ::endl;
 	return this->value;
 }
 
