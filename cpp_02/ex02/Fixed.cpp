@@ -6,13 +6,11 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:22:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:22:30 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/26 10:54:16 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-
-using namespace std;
 
 Fixed::Fixed() : value(0) {}
 
@@ -180,7 +178,7 @@ Fixed const &	Fixed::max(Fixed const &a, Fixed const &b)
 	return b;
 }
 
-ostream&	operator<<(ostream& o, Fixed const &rSym) 
+std::ostream&	operator<<(std::ostream& o, Fixed const &rSym) 
 {
 	o << rSym.toFloat();
 	return o;
