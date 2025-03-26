@@ -6,93 +6,91 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:32:21 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/05 16:20:27 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:10:40 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-using namespace std;
-
-ClapTrap::ClapTrap(const string &name)
+ClapTrap::ClapTrap(const std ::string &name)
     : _name(name),
       _energyPoint(10),
       _attackDamage(0),
       _health(10) {
-    cout << "ClapTrap " << name << " constructor called" << endl;
+    std ::cout << "ClapTrap " << name << " constructor called" << std ::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other) {
     *this = other;
-    cout << "ClapTrap " << _name << " constructor copy called"
-              << endl;
+    std ::cout << "ClapTrap " << _name << " constructor copy called"
+              << std ::endl;
 }
 
 ClapTrap::ClapTrap(void) : _energyPoint(10), _attackDamage(0), _health(10) {
-    cout << "ClapTrap no name constructor called" << endl;
+    std ::cout << "ClapTrap no name constructor called" << std ::endl;
 }
 
 ClapTrap::~ClapTrap(void) {
-    cout << "ClapTrap " << _name << " destructor called" << endl;
+    std ::cout << "ClapTrap " << _name << " destructor called" << std ::endl;
 }
 
-void ClapTrap::attack(const string &target) {
+void ClapTrap::attack(const std ::string &target) {
     if (_health == 0) {
-        cout << "ClapTrap " << _name
-                  << " has dead" << endl;
+        std ::cout << "ClapTrap " << _name
+                  << " has dead" << std ::endl;
     } else if (_energyPoint == 0) {
-        cout << "ClapTrap " << _name
-                  << ": hasen't energy points left" << endl;
+        std ::cout << "ClapTrap " << _name
+                  << ": hasen't energy points left" << std ::endl;
     } else {
-        cout << "ClapTrap " << _name << " attacks " << target
+        std ::cout << "ClapTrap " << _name << " attacks " << target
                   << ", with " << _attackDamage << " points of damage!"
-                  << endl;
+                  << std ::endl;
         _energyPoint--;
     }
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
-    cout << "ClapTrap " << _name << " gets attacked and recibe " << amount
-              << " damage!" << endl;
+    std ::cout << "ClapTrap " << _name << " gets attacked and recibe " << amount
+              << " damage!" << std ::endl;
     if (_health > amount) {
         _health -= amount;
     } else {
         _health = 0;
-        cout << "ClapTrap " << _name << " has died"
-                  << endl;
+        std ::cout << "ClapTrap " << _name << " has died"
+                  << std ::endl;
     }
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
     if (_health == 0) {
-        cout << "ClapTrap " << _name
-                  << ": is dead" << endl;
+        std ::cout << "ClapTrap " << _name
+                  << ": is dead" << std ::endl;
     } else if (_energyPoint == 0) {
-        cout << "ClapTrap " << _name
-                  << "has no energy" << endl;
+        std ::cout << "ClapTrap " << _name
+                  << "has no energy" << std ::endl;
     } else {
-        cout << "ClapTrap " << _name << " is repaired wining " << amount
-                  << " health points!" << endl;
+        std ::cout << "ClapTrap " << _name << " is repaired wining " << amount
+                  << " health points!" << std ::endl;
         _health += amount;
     }
 }
 
-void ClapTrap::setName(const string &value) { _name = value; }
+void ClapTrap::setName(const std ::string &value) { _name = value; }
 void ClapTrap::setHealth(const unsigned int &value) {
     _health = value;
-    cout << "ClapTrap " << _name << " up health to " << value
-              << endl;
+    std ::cout << "ClapTrap " << _name << " up health to " << value
+              << std ::endl;
 }
 void ClapTrap::setEnergyPoint(const unsigned int &value) {
     _energyPoint = value;
 }
 void ClapTrap::setAttackDamage(const unsigned &value) {
-    cout << "ClapTrap " << _name << " up attack damage to " << value
-              << endl;
+    std ::cout << "ClapTrap " << _name << " up attack damage to " << value
+              << std ::endl;
     _attackDamage = value;
 }
 
-string  ClapTrap::getName(void) const { return _name; }
+std ::string  ClapTrap::getName(void) const { return _name; }
 unsigned int ClapTrap::getHealth(void) const { return _health; }
 unsigned int ClapTrap::getEnergyPoint(void) const { return _energyPoint; }
 unsigned int ClapTrap::getAttackDamage(void) const { return _attackDamage; }
