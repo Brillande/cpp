@@ -6,16 +6,15 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:31:55 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/05 16:19:54 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:07:57 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-using namespace std;
 
-ScavTrap::ScavTrap(const string &name) : ClapTrap(name) {
-    cout << "ScavTrap " << name << ": constructor called" << endl;
+ScavTrap::ScavTrap(const std ::string &name) : ClapTrap(name) {
+    std ::cout << "ScavTrap " << name << ": constructor called" << std ::endl;
     _health = 100;
     _energyPoint = 50;
     _attackDamage = 20;
@@ -23,36 +22,36 @@ ScavTrap::ScavTrap(const string &name) : ClapTrap(name) {
 
 ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other) {
     *this = other;
-    cout << "ScavTrap " << _name << ": constructor copy called" << endl;
+    std ::cout << "ScavTrap " << _name << ": constructor copy called" << std ::endl;
 }
 
 ScavTrap::ScavTrap(void) {
-    cout << "ScavTrap no name: constructor void called" << endl;
+    std ::cout << "ScavTrap no name: constructor void called" << std ::endl;
     _health = 100;
     _energyPoint = 50;
     _attackDamage = 20;
 }
 
 ScavTrap::~ScavTrap(void) {
-    cout << "ScavTrap " << _name << ": Destructor called" << endl;
+    std ::cout << "ScavTrap " << _name << ": Destructor called" << std ::endl;
 }
 
-void ScavTrap::attack(const string &target) {
+void ScavTrap::attack(const std ::string &target) {
     if (_health == 0) {
-        cout << "ScavTrap " << _name << "is dead" << endl;
+        std ::cout << "ScavTrap " << _name << "is dead" << std ::endl;
     } else if (_energyPoint == 0) {
-        cout << "ScavTrap " << _name << "hasn't no energy points" << endl;
+        std ::cout << "ScavTrap " << _name << "hasn't no energy points" << std ::endl;
     } else {
-        cout << "ScavTrap " << _name << " attacks " << target
+        std ::cout << "ScavTrap " << _name << " attacks " << target
                   << " with " << _attackDamage << " points of damage!"
-                  << endl;
+                  << std ::endl;
         _energyPoint--;
     }
 }
 
 void ScavTrap::guardGate() const {
-    cout << "ScavTrap " << _name << " is now in Gate keeper mode"
-              << endl;
+    std ::cout << "ScavTrap " << _name << " is now in Gate keeper mode"
+              << std ::endl;
 }
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &value) {
