@@ -6,45 +6,41 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:54:02 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:06:25 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:43:39 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-using namespace std;
-
 Dog::Dog(void) : Animal("Dog") {
-  cout << "constructor Dog empty" << endl;
+  std ::cout << "constructor Dog empty" << std ::endl;
   _brain = new Brain;
 }
 
 Dog::Dog(const Dog &src) : Animal("Dog") {
-	cout << "constructor Dog copy" << endl;
-  if (this != &src)
-    *this = src;
-  _brain = new Brain;
+	std ::cout << "constructor Dog copy" << std ::endl;
+  _brain = new Brain(*src._brain);
 }
 
 Dog::~Dog(void) {
-  cout << "destructor Dog" << endl;
+  std ::cout << "destructor Dog" << std ::endl;
   delete _brain;
 }
 
-void Dog::setBrainIdear(const string &idea, unsigned int offset) {
+void Dog::setBrainIdear(const std::string &idea, unsigned int offset) {
   if (offset >= 100)
     return;
   _brain->ideas[offset] = idea;
 }
 
-string Dog::getBrainIdear(unsigned int offset) {
+std::string Dog::getBrainIdear(unsigned int offset) {
   if (offset < 100)
     return _brain->ideas[offset];
   return "";
 }
 
 void Dog::makeSound(void) const {
-  cout << "guau guau i'm the dog" << endl;
+  std ::cout << "guau guau i'm the dog" << std ::endl;
 }
 
 Dog &Dog::operator=(Dog const &src) {

@@ -6,28 +6,26 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:56:20 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 13:07:14 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:47:35 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongCat.hpp"
 
-using namespace std;
-
 WrongCat::WrongCat(void) : WrongAnimal("WrongCat") {
-	cout << "constructor WrongCat empty" << endl;
+	std::cout << "constructor WrongCat empty" << std::endl;
 }
 
 WrongCat::WrongCat(const WrongCat &src) : WrongAnimal("WrongCat") {
   if (this != &src)
     *this = src;
-  cout << "constructor WrongCat copy" << endl;
+  std::cout << "constructor WrongCat copy" << std::endl;
 }
 
 WrongCat::~WrongCat(void) {}
 
 void WrongCat::makeSound(void) const {
-	cout << "MEOW MEOW i'm the Wrong cat" << endl;
+	std::cout << "MEOW MEOW i'm the Wrong cat" << std::endl;
 }
 
 WrongCat &WrongCat::operator=(WrongCat const &src) {

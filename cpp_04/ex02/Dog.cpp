@@ -6,28 +6,25 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:54:27 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:17:43 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:52:59 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-using namespace std;
 
 Dog::Dog(void) : AAnimal("Dog") {
-  cout << "constructor Dog empty" << endl;
+  std::cout << "constructor Dog empty" << std::endl;
   _brain = new Brain;
 }
 
 Dog::Dog(const Dog &src) : AAnimal("Dog") {
-	cout << "constructor Dog copy" << endl;
-  if (this != &src)
-    *this = src;
-  _brain = new Brain;
+	std::cout << "constructor Dog copy" << std::endl;
+  _brain = new Brain(*src._brain);
 }
 
 Dog::~Dog(void) {
-  cout << "destructor Dog" << endl;
+  std::cout << "destructor Dog" << std::endl;
   delete _brain;
 }
 

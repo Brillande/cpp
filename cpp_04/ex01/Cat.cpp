@@ -6,45 +6,41 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:53:08 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:05:20 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:47:15 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-using namespace std;
-
 Cat::Cat(void) : Animal("Cat") {
-  cout << "constructor Cat empty" << endl;
+  std::cout << "constructor Cat empty" << std::endl;
   _brain = new Brain;
 }
 
 Cat::Cat(const Cat &src) : Animal("Cat") {
-  cout << "constructor Cat copy" << endl;
-  if (this != &src)
-    *this = src;
-  _brain = new Brain;
+  std::cout << "constructor Cat copy" << std::endl;
+  _brain = new Brain(*src._brain);
 }
 
 Cat::~Cat(void) {
-  cout << "destructor Cat" << endl;
+  std::cout << "destructor Cat" << std::endl;
   delete _brain;
 }
 
-void Cat::setBrainIdear(const string &idea, unsigned int offset) {
+void Cat::setBrainIdear(const std::string &idea, unsigned int offset) {
   if (offset >= 100)
     return;
   _brain->ideas[offset] = idea;
 }
 
-string Cat::getBrainIdear(unsigned int offset) {
+std::string Cat::getBrainIdear(unsigned int offset) {
   if (offset < 100)
     return _brain->ideas[offset];
   return "";
 }
 
 void Cat::makeSound(void) const {
-  cout << "maiu miau i'm the cat" << endl;
+  std::cout << "maiu miau i'm the cat" << std::endl;
 }
 
 Cat &Cat::operator=(Cat const &src) {

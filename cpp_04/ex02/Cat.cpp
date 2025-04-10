@@ -6,28 +6,24 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:53:51 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:17:39 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:52:46 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-using namespace std;
-
 Cat::Cat(void) : AAnimal("Cat") {
-  cout << "constructor Cat empty" << endl;
+  std::cout << "constructor Cat empty" << std::endl;
   _brain = new Brain;
 }
 
 Cat::Cat(const Cat &src) : AAnimal("Cat") {
-  cout << "constructor Cat copy" << endl;
-  if (this != &src)
-    *this = src;
-  _brain = new Brain;
+  std::cout << "constructor Cat copy" << std::endl;
+  _brain = new Brain(*src._brain);
 }
 
 Cat::~Cat(void) {
-  cout << "destructor Cat" << endl;
+  std::cout << "destructor Cat" << std::endl;
   delete _brain;
 }
 

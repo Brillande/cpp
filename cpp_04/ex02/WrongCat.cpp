@@ -6,22 +6,20 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:55:30 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:18:02 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:48:52 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongCat.hpp"
 
-using namespace std;
-
 WrongCat::WrongCat(void) : WrongAnimal("WrongCat") {
-	cout << "constructor WrongCat empty" << endl;
+	std::cout << "constructor WrongCat empty" << std::endl;
 }
 
 WrongCat::WrongCat(const WrongCat &src) : WrongAnimal("WrongCat") {
   if (this != &src)
     *this = src;
-  cout << "constructor WrongCat copy" << endl;
+  std::cout << "constructor WrongCat copy" << std::endl;
 }
 
 WrongCat::~WrongCat(void) {}

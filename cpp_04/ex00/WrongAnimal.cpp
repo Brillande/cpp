@@ -12,30 +12,28 @@
 
 #include "WrongAnimal.hpp"
 
-using namespace std;
-
-WrongAnimal::WrongAnimal(const string &type) : _type(type) {
-	cout << "WrongAnimal constructor string" << endl;
+WrongAnimal::WrongAnimal(const std::string &type) : _type(type) {
+	std::cout << "WrongAnimal constructor std::string" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(void) : _type("WrongAnimal") {
-	cout << "WrongAnimal constructor empty" << endl;
+	std::cout << "WrongAnimal constructor empty" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &src) {
   if (this != &src)
     *this = src;
-  cout << "WrongAnimal constructor copy" << endl;
+  std::cout << "WrongAnimal constructor copy" << std::endl;
 }
 
 WrongAnimal::~WrongAnimal(void) {
-  cout << "WrongAnimal destructor" << endl;
+  std::cout << "WrongAnimal destructor" << std::endl;
 }
 
-const string &WrongAnimal::getType(void) const { return _type; }
+const std::string &WrongAnimal::getType(void) const { return _type; }
 
 void WrongAnimal::makeSound(void) const {
-  cout << "chuterstock animal from Wrong Animal" << endl;
+  std::cout << "chuterstock animal from Wrong Animal" << std::endl;
 }
 
 WrongAnimal &WrongAnimal::operator=(WrongAnimal const &src) {

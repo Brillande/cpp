@@ -6,25 +6,23 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:51:21 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 13:10:32 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:47:10 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Brain.hpp"
 
-using namespace std;
-
 Brain::Brain() {
-	cout << "Brain constructor empty" << endl;
+	std::cout << "Brain constructor empty" << std::endl;
 }
 
 Brain::Brain(const Brain &src) {
-	cout << "Brain constructor copy" << endl;
+	std::cout << "Brain constructor copy" << std::endl;
 	*this = src;
 }
 
 Brain::~Brain() {
-	cout << "Brain destructor empty" << endl;
+	std::cout << "Brain destructor empty" << std::endl;
 }
 
 Brain &Brain::operator=(Brain const &src) {

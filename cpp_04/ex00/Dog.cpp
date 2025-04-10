@@ -6,30 +6,28 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:18:53 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/10 19:06:15 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:46:10 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-using namespace std;
-
 Dog::Dog(void) : Animal("Dog") {
-	cout << "constructor Dog empty" << endl;
+	std::cout << "constructor Dog empty" << std::endl;
 }
 
 Dog::Dog(const Dog &src) : Animal("Dog") {
   if (this != &src)
     *this = src;
-  cout << "constructor Dog copy" << endl;
+  std::cout << "constructor Dog copy" << std::endl;
 }
 
 Dog::~Dog(void) {
-	cout << "destructor Dog" << endl;
+	std::cout << "destructor Dog" << std::endl;
 }
 
 void Dog::makeSound(void) const {
-	cout << "guau guau i'm the dog" << endl;
+	std::cout << "guau guau i'm the dog" << std::endl;
 }
 
 Dog &Dog::operator=(Dog const &src) {
