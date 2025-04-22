@@ -4,17 +4,17 @@ int main(void)
 {
     try 
     {
-        Bureaucrat Maialen("Maialen", 1);
-        std::cout << Maialen << std::endl;
+        Bureaucrat maialen("Maialen", 1);
+        std::cout << maialen << std::endl;
         for (int i = 0; i < 100; i++)
-            Maialen.DecrementGrade();
-        std::cout << Maialen << std::endl;
+            maialen.DecrementGrade();
+        std::cout << maialen << std::endl;
         for (int i = 0; i < 50; i++)
-            Maialen.IncrementGrade();
-        std::cout << Maialen << std::endl;
+            maialen.IncrementGrade();
+        std::cout << maialen << std::endl;
         for (int i = 0; i < 200; i++)
-            Maialen.DecrementGrade();
-        std::cout << Maialen << std::endl;
+            maialen.DecrementGrade();
+        std::cout << maialen << std::endl;
     } 
     catch (const std::exception &e) 
     {
@@ -23,8 +23,8 @@ int main(void)
 
     try 
     {
-        Bureaucrat Ellande("Ellande", 300);
-        std::cout << Ellande << std::endl;
+        Bureaucrat ellande("Ellande", 300);
+        std::cout << ellande << std::endl;
     }
     catch (const Bureaucrat::GradeLowException &e)
     {
@@ -41,8 +41,8 @@ int main(void)
 
     try 
     {
-        Bureaucrat Ugo("Ugo ", 0);
-        std::cout << Ugo << std::endl;
+        Bureaucrat ugo("Ugo ", 0);
+        std::cout << ugo << std::endl;
     }
     catch (const Bureaucrat::GradeLowException &e)
     {
@@ -59,8 +59,8 @@ int main(void)
 
     try 
     {
-        Bureaucrat Luis("Luis Maria", 1);
-        std::cout << Luis << std::endl;
+        Bureaucrat luis("Luis Maria", 1);
+        std::cout << luis << std::endl;
     }
     catch (const Bureaucrat::GradeLowException &e)
     {
@@ -73,5 +73,5 @@ int main(void)
     catch (const std::exception &e)
     {
         std::cerr << "Luis Maria "<< e.what() << std::endl;
-    }
+    }    
 }

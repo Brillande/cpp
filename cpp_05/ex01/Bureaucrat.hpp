@@ -4,6 +4,7 @@
 
 #define MinBureaucratGrade 150
 #define MaxBureaucratGrade 1
+
 class Bureaucrat
 {
     public:
@@ -23,6 +24,8 @@ class Bureaucrat
 
 		int GetGrade() const;
 		const std::string &GetName() const;
+
+		
 
 		class GradeLowException : public std::exception
 		{

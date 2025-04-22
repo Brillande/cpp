@@ -1,8 +1,9 @@
-NAME        := Mommy,_when_I_grow_up,_I_want_to_be_a_bureaucrat!
+NAME        := Form_up,_maggots!
 CC         := c++
 FLAGS    := -Wall -Wextra -Werror -std=c++98
 
 SRCS := Bureaucrat.cpp \
+		Form.cpp \
 		Main.cpp
                           
 OBJS        := ${SRCS:.cpp=.o}
