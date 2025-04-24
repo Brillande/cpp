@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/24 13:51:14 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/24 13:51:15 by emedina-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <iostream>
 
 #define MinBureaucratGrade 150
 #define MaxBureaucratGrade 1
-
+#include "Form.hpp"
+class Form;
 class Bureaucrat
 {
     public:
@@ -22,6 +35,7 @@ class Bureaucrat
 		void	IncrementGrade();
 		void	DecrementGrade();
 
+		void SignForm(Form &form);
 		int GetGrade() const;
 		const std::string &GetName() const;
 

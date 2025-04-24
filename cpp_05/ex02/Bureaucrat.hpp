@@ -5,17 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 13:50:55 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/24 13:50:56 by emedina-         ###   ########.fr       */
+/*   Created: 2025/04/24 13:52:12 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/24 13:52:13 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
-
 #define MinBureaucratGrade 150
 #define MaxBureaucratGrade 1
+
+class AForm;
+
 class Bureaucrat
 {
     public:
@@ -33,8 +35,11 @@ class Bureaucrat
 		void	IncrementGrade();
 		void	DecrementGrade();
 
+		void SignForm(AForm &form);
 		int GetGrade() const;
 		const std::string &GetName() const;
+		void	executeForm(const AForm &form);
+		
 
 		class GradeLowException : public std::exception
 		{
@@ -52,5 +57,5 @@ class Bureaucrat
 		int 	_Grade;
 };
 		
-std::ostream &operator<<(std::ostream &oStream, Bureaucrat &value);
+std::ostream &operator<<(std::ostream &oStream, const Bureaucrat &value);
 

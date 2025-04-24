@@ -1,7 +1,27 @@
-#include "Form.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/24 13:51:29 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/24 13:51:30 by emedina-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "Form.hpp"
+#include "Bureaucrat.hpp"
 int main(void)
 {
+
+	Bureaucrat manolo("manolo", 100);
+	Bureaucrat paco("paco", 1);
+
+	Form willy("willy", 10, 5);
+
+	paco.SignForm(willy);
+	manolo.SignForm(willy);
 
     try 
     {
@@ -62,4 +82,5 @@ int main(void)
 	{
 		std::cerr << "koldo " << e.what() << std::endl;
 	}
+
 }

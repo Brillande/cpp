@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 13:51:23 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/24 13:51:24 by emedina-         ###   ########.fr       */
+/*   Created: 2025/04/24 13:51:53 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/24 13:51:54 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-
 #include <iostream>
 #include "Bureaucrat.hpp"
 
-class Bureaucrat;
-class Form
+class AForm
 {
   public:
-    Form (const std::string &Name, int MinimumGradeSign, int MinimumGradeExecute);
-    Form (const Form &Src);
-    Form ();
-    ~Form ();
+    AForm (const std::string &Name, int MinimumGradeSign, int MinimumGradeExecute);
+    AForm (const AForm &Src);
+    AForm ();
+    virtual ~AForm ();
 
-    Form &operator=(Form const &src);
+    AForm &operator=(AForm const &src);
 
     const std::string &GetName() const;
     bool               GetIsSigned() const;
     int                GetMinimumGradeSign() const;
     int                GetMinimumGradeExecute() const;
 
+    void        execute(const Bureaucrat &b) const;
+	  void				BeSigned(const Bureaucrat &b);
 
-    void				BeSigned(const Bureaucrat &b);
+    class ErrorSign : public std::exception
+    {
+        public:
+          virtual const char *what() const throw();
+    };
   private:
     std::string _Name;
     bool        _IsSigned;
@@ -40,6 +44,7 @@ class Form
     const int   _MinimumGradeExecute;
 
     void _CheckGrade() const;
+    virtual void _interExecute(const Bureaucrat &b) const = 0;
 };
 
-std::ostream& operator<<(std::ostream& o, const Form& a);
+std::ostream& operator<<(std::ostream& o, const AForm& a);

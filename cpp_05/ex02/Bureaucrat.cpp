@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 13:51:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/24 13:51:10 by emedina-         ###   ########.fr       */
+/*   Created: 2025/04/24 13:52:04 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/24 13:52:05 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-
+#include "AForm.hpp"
 //constructor and desctructor
 
 Bureaucrat::Bureaucrat(void)
@@ -64,8 +64,19 @@ void Bureaucrat::DecrementGrade()
 {
     (*this)--;
 }
+// try catch
 
-void Bureaucrat::SignForm(Form &form) {
+void Bureaucrat::executeForm(const AForm &form) {
+    try {
+        form.execute(*this);
+        std::cout << *this << " executed " << form << std::endl;
+    } catch (const std::exception &e) {
+        std::cout << *this << " can't execute " << form
+                  << e.what() << std::endl;
+    }
+}
+
+void Bureaucrat::SignForm(AForm &form) {
     try 
     {
         form.BeSigned(*this);
@@ -78,7 +89,6 @@ void Bureaucrat::SignForm(Form &form) {
     }
 }
 //overload
-
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &Src) 
 {
     if (this == &Src)
@@ -122,7 +132,7 @@ Bureaucrat Bureaucrat::operator--(int)
 
 //Permite que puedas imprimir objetos de tipo Bureaucrat directamente con std::cout
 
-std::ostream &operator<<(std::ostream &oStream, Bureaucrat &value) {
+std::ostream &operator<<(std::ostream &oStream, const Bureaucrat &value) {
     oStream << value.GetName() << " Bureaucrat Grade " << value.GetGrade() << ".";
     return (oStream);
 }
