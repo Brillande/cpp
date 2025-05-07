@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Main.cpp                                           :+:      :+:    :+:   */
+/*   Serializer.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 14:58:12 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/30 14:58:13 by emedina-         ###   ########.fr       */
+/*   Created: 2025/04/30 15:09:32 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/30 15:55:10 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#pragma once
 
-int main(int ac, char **av)
+
+struct Data 
 {
-    if (ac != 2)
-		std::cerr << "only one argument" << std::endl;
-    else
-	    ScalarConverter::convert(av[1]);
-	return (0);
-}
+	uintptr_t raw;
+};
+  
+class Serializer
+{
+	private:
+		Serializer(void);
+		Serializer(Serializer const &src);
+		Serializer&	operator=(Serializer const &assign);
+		~Serializer(void);
+	public:
+		static uintptr_t serialize(Data* ptr);
+		static Data* deserialize(uintptr_t raw);
+};

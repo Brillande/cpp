@@ -1,22 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Main.cpp                                           :+:      :+:    :+:   */
+/*   Base.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 14:58:12 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/30 14:58:13 by emedina-         ###   ########.fr       */
+/*   Created: 2025/04/30 15:36:36 by emedina-          #+#    #+#             */
+/*   Updated: 2025/04/30 15:58:01 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#pragma once
 
-int main(int ac, char **av)
+#include <stdint.h>
+#include <iostream>
+#include <immintrin.h>
+
+class Base 
 {
-    if (ac != 2)
-		std::cerr << "only one argument" << std::endl;
-    else
-	    ScalarConverter::convert(av[1]);
-	return (0);
-}
+	public:
+		virtual ~Base();
+};
+
+class A : public Base 
+{
+    
+};
+class B : public Base 
+{
+    
+};
+class C : public Base 
+{
+    
+};
+
+void identify(Base& p);
+void identify(Base* p);
+Base *generate(void);

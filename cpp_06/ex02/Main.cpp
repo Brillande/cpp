@@ -6,17 +6,18 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:58:12 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/30 14:58:13 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:02:24 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#include "Base.hpp"
 
-int main(int ac, char **av)
+int main(void)
 {
-    if (ac != 2)
-		std::cerr << "only one argument" << std::endl;
-    else
-	    ScalarConverter::convert(av[1]);
-	return (0);
+	Base *ellande = generate();
+	std::cout << "pointer identifer : ";
+	identify(ellande);
+	std::cout << "ref identifer : ";
+	identify(*ellande);
+	delete ellande;
 }

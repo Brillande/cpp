@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:54:12 by emedina-          #+#    #+#             */
-/*   Updated: 2025/05/07 13:34:40 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:42:29 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int main(int, char**)
     // Prueba de autoasignación
     numbers = numbers;
     std::cout << "Autoasignación realizada correctamente." << std::endl;
-
+    delete[] mirror;
     return 0;
 }
