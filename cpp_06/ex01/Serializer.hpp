@@ -6,16 +6,17 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:09:32 by emedina-          #+#    #+#             */
-/*   Updated: 2025/04/30 15:55:10 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:22:57 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include <iostream>
 
 struct Data 
 {
-	uintptr_t raw;
+	unsigned long raw;
 };
   
 class Serializer
@@ -26,6 +27,6 @@ class Serializer
 		Serializer&	operator=(Serializer const &assign);
 		~Serializer(void);
 	public:
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
+		static unsigned long serialize(Data* ptr);
+		static Data* deserialize(unsigned long raw);
 };
