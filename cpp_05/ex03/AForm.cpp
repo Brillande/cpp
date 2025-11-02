@@ -23,12 +23,12 @@ AForm::AForm(const std::string &Name, int MinimumGradeSign,
 }
 
 AForm::AForm(const AForm &Src)
-: _MinimumGradeSign(Src.GetMinimumGradeSign()),
-_MinimumGradeExecute(Src.GetMinimumGradeExecute()) 
+: _Name(Src.GetName()),
+  _IsSigned(Src.GetIsSigned()),
+  _MinimumGradeSign(Src.GetMinimumGradeSign()),
+  _MinimumGradeExecute(Src.GetMinimumGradeExecute()) 
 {
     std::cout << "constructor AForm copy" << std::endl;
-    if (this != &Src)
-    *this = Src;
     _CheckGrade();
 }
 

@@ -98,9 +98,9 @@ Bureaucrat &Bureaucrat::operator++(void)
 Bureaucrat Bureaucrat::operator++(int) 
 {
     Bureaucrat old = *this;
-    _Grade--;
-    if (_Grade < MaxBureaucratGrade)
+    if (_Grade - 1 < MaxBureaucratGrade)
         throw GradeHighException();
+    _Grade--;
     return (old);
 }
 
@@ -114,9 +114,9 @@ Bureaucrat &Bureaucrat::operator--(void)
 Bureaucrat Bureaucrat::operator--(int) 
 {
     Bureaucrat old = *this;
-    _Grade++;
-    if (_Grade > MinBureaucratGrade)
+    if (_Grade + 1 > MinBureaucratGrade)
         throw GradeLowException();
+    _Grade++;
     return (old);
 }
 

@@ -23,12 +23,12 @@ Form::Form(const std::string &Name, int MinimumGradeSign,
 }
 
 Form::Form(const Form &Src)
-: _MinimumGradeSign(Src.GetMinimumGradeSign()),
-_MinimumGradeExecute(Src.GetMinimumGradeExecute()) 
+: _Name(Src.GetName()),
+  _IsSigned(Src.GetIsSigned()),
+  _MinimumGradeSign(Src.GetMinimumGradeSign()),
+  _MinimumGradeExecute(Src.GetMinimumGradeExecute()) 
 {
     std::cout << "constructor Form copy" << std::endl;
-    if (this != &Src)
-    *this = Src;
     _CheckGrade();
 }
 

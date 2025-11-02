@@ -12,14 +12,20 @@
 
 #include "Serializer.hpp"
 
-// convierte un puntero a un entero sin signo
+// Convierte un puntero a Data en un entero sin signo (uintptr_t)
+// reinterpret_cast permite convertir entre tipos de punteros y enteros
+// Útil para serializar punteros (almacenarlos como números)
 uintptr_t Serializer::serialize(Data *ptr)
 {
+	// Convierte la dirección de memoria del puntero a un entero sin signo
 	return (reinterpret_cast<uintptr_t>(ptr));
 }
-// convierte un entero sin signo a un puntero
+
+// Convierte un entero sin signo (uintptr_t) de vuelta a un puntero a Data
+// Útil para deserializar punteros (recuperarlos desde números)
 Data* Serializer::deserialize(uintptr_t raw)
 {
+	// Convierte el entero de vuelta a un puntero a Data
 	return (reinterpret_cast<Data*>(raw));
 }
 

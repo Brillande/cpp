@@ -4,7 +4,7 @@ int main()
 {
     std::vector<int> numbers;
     for (int i = 0; i < 10; ++i)
-        numbers.push_back(i); // 0, 2, 4, ..., 18
+        numbers.push_back(i); // 0, 1, 2, ..., 9
 
     try 
     {
