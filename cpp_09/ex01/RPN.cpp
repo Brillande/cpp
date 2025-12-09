@@ -7,17 +7,69 @@
 #include <stdint.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <climits>
 
-// Funciones auxiliares para realizar operaciones aritméticas
-// Multiplicación: retorna nb1 * nb2
-static int rpn_mult(int nb1, int nb2) { return nb1 * nb2; }
-// Resta: retorna nb1 - nb2
-static int rpn_sub(int nb1, int nb2) { return nb1 - nb2; }
+// Funciones auxiliares para realizar operaciones aritméticas con validación de overflow
+
 // Suma: retorna nb1 + nb2
-static int rpn_add(int nb1, int nb2) { return nb1 + nb2; }
+// Lanza std::runtime_error si hay overflow
+static int rpn_add(int nb1, int nb2) {
+    // Verificar overflow en suma: a + b > INT_MAX o a + b < INT_MIN
+    if (nb1 > 0 && nb2 > INT_MAX - nb1)
+        throw std::runtime_error("integer overflow in addition");
+    if (nb1 < 0 && nb2 < INT_MIN - nb1)
+        throw std::runtime_error("integer overflow in addition");
+    return nb1 + nb2;
+}
+
+// Resta: retorna nb1 - nb2
+// Lanza std::runtime_error si hay overflow
+static int rpn_sub(int nb1, int nb2) {
+    // Verificar overflow en resta: a - b > INT_MAX o a - b < INT_MIN
+    // a - b > INT_MAX es equivalente a a > INT_MAX + b
+    // a - b < INT_MIN es equivalente a a < INT_MIN + b
+    if (nb2 < 0 && nb1 > INT_MAX + nb2)
+        throw std::runtime_error("integer overflow in subtraction");
+    if (nb2 > 0 && nb1 < INT_MIN + nb2)
+        throw std::runtime_error("integer overflow in subtraction");
+    return nb1 - nb2;
+}
+
+// Multiplicación: retorna nb1 * nb2
+// Lanza std::runtime_error si hay overflow
+static int rpn_mult(int nb1, int nb2) {
+    // Verificar overflow en multiplicación
+    // Caso especial: si alguno es 0, no hay overflow
+    if (nb1 == 0 || nb2 == 0)
+        return 0;
+    
+    // Verificar si nb1 * nb2 > INT_MAX
+    // Esto es equivalente a nb1 > INT_MAX / nb2 (si nb2 > 0)
+    // o nb1 < INT_MAX / nb2 (si nb2 < 0)
+    if (nb1 > 0 && nb2 > 0) {
+        if (nb1 > INT_MAX / nb2)
+            throw std::runtime_error("integer overflow in multiplication");
+    } else if (nb1 < 0 && nb2 < 0) {
+        // Ambos negativos: resultado positivo
+        if (nb1 < INT_MAX / nb2)  // nb2 es negativo, así que INT_MAX / nb2 es negativo
+            throw std::runtime_error("integer overflow in multiplication");
+    } else {
+        // Uno positivo y uno negativo: resultado negativo
+        // Verificar si nb1 * nb2 < INT_MIN
+        if (nb1 > 0) {
+            if (nb1 > INT_MIN / nb2)  // nb2 es negativo
+                throw std::runtime_error("integer overflow in multiplication");
+        } else {
+            if (nb2 > INT_MIN / nb1)  // nb1 es negativo
+                throw std::runtime_error("integer overflow in multiplication");
+        }
+    }
+    return nb1 * nb2;
+}
 
 // División: retorna nb1 / nb2
 // Lanza std::runtime_error si nb2 == 0 (división por cero)
+// Nota: La división de enteros en C++ trunca hacia cero, no hay overflow en división
 static int rpn_div(int nb1, int nb2) {
     if (nb2 == 0)
         throw std::runtime_error("you can't do a division by 0");

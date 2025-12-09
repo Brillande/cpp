@@ -43,6 +43,11 @@
 // Mensaje de error cuando el mes está fuera del rango válido (1-12)
 #define DATE_INVALID_MONTH "DATE: Invalid month : Months can only range from 1 to 12."
 
+// Límite máximo de año permitido (para evitar overflow en uint16_t)
+// uint16_t puede almacenar valores de 0 a 65535 (UINT16_MAX)
+// Rechazamos años >= 65536 porque causarían overflow al convertirse a uint16_t
+#define MAX_YEAR 65535
+
 // Mensaje de error para días inválidos (se genera dinámicamente)
 #define DATE_INVALID_DAY _day_error_msg()
 

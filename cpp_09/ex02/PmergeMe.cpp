@@ -42,7 +42,14 @@ std::vector<uint32_t> create_list(char **str) {
     std::vector<uint32_t> res;
 
     while (*str) {
-        res.push_back(getNextNumber((char **)str));
+        // Obtiene el siguiente número del string
+        int64_t num = getNextNumber((char **)str);
+        // Si getNextNumber retorna -1, significa que el string está vacío o solo contiene espacios
+        // Esto es un error y debe ser rechazado
+        if (num == -1)
+            throw std::runtime_error("Invalid input");
+        // Agrega el número válido a la lista
+        res.push_back(static_cast<uint32_t>(num));
         str++;
     }
     return res;

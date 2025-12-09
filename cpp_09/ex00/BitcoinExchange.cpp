@@ -1,4 +1,5 @@
 #include "BitcoinExchange.hpp"
+#include <ctype.h>
 
 // ========== FTREGEX IMPLEMENTATION ==========
 // Constructor: compila un patrón regex desde un string
@@ -203,12 +204,43 @@ void Date::_validDate(const std::string &date, const std::string &pattern)
         FTregMatch match = reg.match(date);
 
         // Convierte los grupos capturados a números enteros
+        // Validamos que los strings no estén vacíos antes de parsear
+        if (match[1].empty() || match[2].empty() || match[3].empty())
+            throw std::invalid_argument("DATE: Invalid date format: empty year, month or day.");
+        
+        // Verificamos que los strings contengan solo dígitos (sin espacios, signos, etc.)
+        // Esto previene problemas de parseo silencioso
+        for (size_t i = 0; i < match[1].size(); ++i) {
+            if (!isdigit(match[1][i]))
+                throw std::invalid_argument("DATE: Invalid year: year must contain only digits.");
+        }
+        for (size_t i = 0; i < match[2].size(); ++i) {
+            if (!isdigit(match[2][i]))
+                throw std::invalid_argument("DATE: Invalid month: month must contain only digits.");
+        }
+        for (size_t i = 0; i < match[3].size(); ++i) {
+            if (!isdigit(match[3][i]))
+                throw std::invalid_argument("DATE: Invalid day: day must contain only digits.");
+        }
+        
         uint32_t year = strToType<uint32_t>(match[1]);
         uint32_t month = strToType<uint32_t>(match[2]);
         uint32_t day = strToType<uint32_t>(match[3]);
 
+        // Valida el año: debe estar dentro del rango permitido (0-MAX_YEAR)
+        // Esto previene overflow cuando se asigna a uint16_t y mantiene fechas razonables
+        // uint16_t puede almacenar valores de 0 a 65535 (UINT16_MAX)
+        // Rechazamos años > MAX_YEAR porque causarían overflow al convertirse a uint16_t
+        if (year > MAX_YEAR)
+        {
+            std::ostringstream oss;
+            oss << "DATE: Invalid year: Year exceeds maximum allowed value of " << MAX_YEAR 
+                << ". You have exceeded the possible years.";
+            throw std::invalid_argument(oss.str());
+        }
+
         // Almacena los valores en la estructura interna
-        _date.year = year;
+        _date.year = static_cast<uint16_t>(year);
         _date.month = month;
         _date.day = day;
 
