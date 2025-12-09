@@ -9,7 +9,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <ctime>
 #include <iomanip>
 #include <locale>
@@ -58,8 +57,10 @@ template <typename T> T strToType(const std::string &str)
 
 // ========== FTREGEX ==========
 // Clase wrapper para regex.h (POSIX regex) que proporciona una interfaz más fácil de usar
-// FTregMatch: vector de strings que contiene los grupos capturados por el regex
-typedef std::vector<std::string> FTregMatch;
+// CAMBIO: FTregMatch ahora es un map<int, string> en lugar de vector<string>
+// La clave es el índice del grupo (0, 1, 2, ...) y el valor es el string capturado
+// Esto permite acceso por índice como antes (match[1], match[2]) pero usando map
+typedef std::map<int, std::string> FTregMatch;
 typedef FTregMatch::iterator FTregMatchIt;
 
 // Clase para trabajar con expresiones regulares usando regex.h (POSIX)
@@ -145,10 +146,11 @@ class Date
     } _date;
     const std::string _sep;	// Separador usado en el formato (por defecto "-")
 
-    // Tabla estática con los días máximos por mes (índice 0 no usado, 1-12 son los meses)
-    static const uint32_t    _daysInMonth[13];
-    // Tabla estática con los nombres de los meses en inglés (índice 0 vacío, 1-12 son los meses)
-    static const std::string _months[13];
+    // CAMBIO: Convertidos de arrays estáticos a std::map para cumplir con la restricción de usar solo map
+    // Tabla con los días máximos por mes (clave: mes 1-12, valor: días máximos)
+    static const std::map<int, uint32_t>    _daysInMonth;
+    // Tabla con los nombres de los meses en inglés (clave: mes 1-12, valor: nombre del mes)
+    static const std::map<int, std::string> _months;
 };
 
 // Operador de salida: permite imprimir una fecha directamente con cout
@@ -169,7 +171,7 @@ class BitcoinExchange
 	// Obtiene el precio de Bitcoin para una fecha específica
 	// Si no existe la fecha exacta, retorna el precio de la fecha anterior más cercana
 	// Retorna 0 si no hay datos para esa fecha o fechas anteriores
-	float getBtcPrice(const Date &date);
+	double getBtcPrice(const Date &date);
 	// Carga datos de precios desde un archivo CSV
 	// El formato esperado es: fecha,precio (primera línea debe ser: date,exchange_rate)
 	void addDataCsv(const char *csv);

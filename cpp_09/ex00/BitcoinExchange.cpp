@@ -33,29 +33,57 @@ FTregMatch FTregex::match(const std::string &input) const
 {
     // Calcula el número de grupos (grupo 0 + grupos de captura)
     size_t                  nGroups = _regex.re_nsub + 1;
-    // Vector para almacenar las posiciones de los grupos coincidentes
-    std::vector<regmatch_t> pmatch(nGroups);
-    // Vector para almacenar los strings de los grupos capturados
+    // CAMBIO: pmatch ahora es un map<int, regmatch_t>
+    // La clave es el índice del grupo (0, 1, 2, ...) y el valor es la estructura regmatch_t
+    // Esto permite almacenar las posiciones de los grupos usando map
+    std::map<int, regmatch_t> pmatch;
+    // CAMBIO: groups ahora es un map<int, string> (definido por FTregMatch)
+    // La clave es el índice del grupo y el valor es el string capturado
     FTregMatch              groups;
 
+    // CAMBIO: Usamos array dinámico para adaptarse a cualquier número de grupos
+    // regexec() requiere un array contiguo de regmatch_t (API C de POSIX)
+    // Usamos new[] para crear un array dinámico del tamaño exacto necesario
+    regmatch_t* temp_pmatch = new regmatch_t[nGroups];
+    
     // Ejecuta el regex sobre el string de entrada
-    int status = regexec(&_regex, input.c_str(), nGroups, pmatch.data(), 0);
-    // Si no coincide, lanza una excepción
+    // regexec requiere un array contiguo, por eso usamos temp_pmatch temporalmente
+    int status = regexec(&_regex, input.c_str(), nGroups, temp_pmatch, 0);
+    // Si no coincide, liberamos memoria y lanzamos excepción
     if (status != 0)
+    {
+        delete[] temp_pmatch;  // Liberar memoria antes de lanzar excepción
         throw regex_err(status, _regex);
+    }
+    
+    // CAMBIO: Copiamos los resultados del array dinámico al map
+    // Esto nos permite usar map como contenedor principal
+    for (size_t i = 0; i < nGroups; ++i)
+    {
+        pmatch[static_cast<int>(i)] = temp_pmatch[i];
+    }
+    
+    // Liberamos el array dinámico temporal (ya no lo necesitamos)
+    delete[] temp_pmatch;
+    
     // Extrae los grupos capturados desde el string original
     for (size_t i = 0; i < nGroups; ++i)
     {
+        int idx = static_cast<int>(i);
         // Si el grupo coincide (rm_so != -1), extrae el substring
-        if (pmatch[i].rm_so != -1)
+        if (pmatch[idx].rm_so != -1)
         {
-            groups.push_back(input.substr(pmatch[i].rm_so,
-                                          pmatch[i].rm_eo - pmatch[i].rm_so));
+            // CAMBIO: Usamos asignación con []
+            // groups[idx] 
+            // El map permite acceso por índice usando el operador []
+            groups[idx] = input.substr(pmatch[idx].rm_so,
+                                       pmatch[idx].rm_eo - pmatch[idx].rm_so);
         }
         else
         {
-            // Si el grupo no coincide, agrega string vacío
-            groups.push_back("");
+            // Si el grupo no coincide, asigna string vacío
+            // CAMBIO: Usamos asignación con []
+            groups[idx] = "";
         }
     }
     return groups;
@@ -70,12 +98,16 @@ int FTregex::captureGroupSize(void) const
 // Constructor de regex_err: crea una excepción con un mensaje de error descriptivo
 FTregex::regex_err::regex_err(int status, const regex_t &regex)
 {
-    // Buffer para almacenar el mensaje de error de POSIX
-    char errorBuffer[256];
+    // CAMBIO: Usamos array dinámico en lugar de estático para ser consistente
+    // Buffer para almacenar el mensaje de error de POSIX (regerror requiere un buffer de tamaño fijo)
+    const size_t BUFFER_SIZE = 256;
+    char* errorBuffer = new char[BUFFER_SIZE];
     // Obtiene el mensaje de error de POSIX y lo almacena en el buffer
-    regerror(status, &regex, errorBuffer, sizeof(errorBuffer));
+    regerror(status, &regex, errorBuffer, BUFFER_SIZE);
     // Crea el mensaje completo con prefijo identificador
     _msg = "FTregex compilation error: " + std::string(errorBuffer);
+    // Libera el buffer dinámico
+    delete[] errorBuffer;
 }
 
 // Destructor de regex_err: libera recursos
@@ -91,14 +123,27 @@ const char *FTregex::regex_err::what() const throw()
 }
 
 // ========== DATE IMPLEMENTATION ==========
-// Tabla estática con los días máximos por mes (índice 0 no usado, 1-12 son los meses)
+// CAMBIO: Convertidos de arrays estáticos a std::map para cumplir con la restricción de usar solo map
+// Funciones auxiliares para inicializar los maps estáticos (necesario para C++98)
+// Tabla con los días máximos por mes (clave: mes 1-12, valor: días máximos)
 // Nota: febrero tiene 29 días (máximo en año bisiesto), se valida después
-const uint32_t Date::_daysInMonth[13] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static std::map<int, uint32_t> _initDaysInMonth() {
+    std::map<int, uint32_t> m;
+    m[1] = 31; m[2] = 29; m[3] = 31; m[4] = 30; m[5] = 31; m[6] = 30;
+    m[7] = 31; m[8] = 31; m[9] = 30; m[10] = 31; m[11] = 30; m[12] = 31;
+    return m;
+}
+const std::map<int, uint32_t> Date::_daysInMonth = _initDaysInMonth();
 
-// Tabla estática con los nombres de los meses en inglés (índice 0 vacío, 1-12 son los meses)
-const std::string Date::_months[13] = {"",        "January",  "February", "March",  "April",
-                                       "May",     "June",     "July",     "August", "September",
-                                       "October", "November", "December"};
+// Tabla con los nombres de los meses en inglés (clave: mes 1-12, valor: nombre del mes)
+static std::map<int, std::string> _initMonths() {
+    std::map<int, std::string> m;
+    m[1] = "January"; m[2] = "February"; m[3] = "March"; m[4] = "April";
+    m[5] = "May"; m[6] = "June"; m[7] = "July"; m[8] = "August";
+    m[9] = "September"; m[10] = "October"; m[11] = "November"; m[12] = "December";
+    return m;
+}
+const std::map<int, std::string> Date::_months = _initMonths();
 
 // Constructor por defecto: crea una fecha vacía (0) con separador por defecto
 Date::Date() : _sep(DEFAULT_SEP)
@@ -171,7 +216,9 @@ void Date::_validDate(const std::string &date, const std::string &pattern)
         if (month == 0 || month > 12)
             throw std::invalid_argument(DATE_INVALID_MONTH);
         // Valida el día: debe estar entre 1 y el máximo para ese mes
-        if (day == 0 || day > _daysInMonth[month])
+        // CAMBIO: Acceso al map usando find()->second (el map ya no es un array, ahora es std::map)
+        std::map<int, uint32_t>::const_iterator it = _daysInMonth.find(month);
+        if (day == 0 || day > it->second)
             throw std::invalid_argument(DATE_INVALID_DAY);
         // Validación especial para febrero en años no bisiestos (máximo 28 días)
         if (month == 2 && !isLeapYear(year) && day > 28)
@@ -212,8 +259,9 @@ std::string Date::_getLocalizedMonthName(unsigned month)
 	}
 	catch (const std::runtime_error &e)
     {
-		// Si falla (locale no disponible), retorna el nombre en inglés de la tabla estática
-		return _months[month];
+		// Si falla (locale no disponible), retorna el nombre en inglés del map
+		// CAMBIO: Acceso al map usando find()->second en lugar de []
+		return _months.find(month)->second;
 	}
 }
 
@@ -221,7 +269,9 @@ std::string Date::_getLocalizedMonthName(unsigned month)
 inline std::string Date::_day_error_msg() 
 {
     // Obtiene el máximo de días para el mes actual
-    unsigned maxDays = _daysInMonth[_date.month];
+    // CAMBIO: Acceso al map usando find()->second en lugar de []
+    std::map<int, uint32_t>::const_iterator it = _daysInMonth.find(_date.month);
+    unsigned maxDays = it->second;
     bool     leap = false;
     // Si es febrero y es año bisiesto, el máximo es 29 días
     if (_date.month == 2 && isLeapYear(_date.year)) 
@@ -308,8 +358,9 @@ void BitcoinExchange::addDataCsv(const char *csv)
                 FTregMatch match = reg.match(line);
                 // Crea un objeto Date desde el primer grupo (fecha)
                 Date       date(match[1]);
-                // Convierte el segundo grupo (precio) a float y lo almacena en el map
-                _market[date] = strToType<float>(match[2]);
+                // Convierte el segundo grupo (precio) a double y lo almacena en el map
+                // Usa double para mantener precisión completa (el Market es std::map<Date, double>)
+                _market[date] = strToType<double>(match[2]);
 
         } 
         catch (const std::exception &e) 
@@ -328,7 +379,7 @@ void BitcoinExchange::addDataCsv(const char *csv)
 }
 
 // Obtiene el precio de Bitcoin para una fecha específica
-float BitcoinExchange::getBtcPrice(const Date &date) 
+double BitcoinExchange::getBtcPrice(const Date &date) 
 {
     // Busca la fecha en el map usando lower_bound (busca la fecha >= date)
     Market::iterator it = _market.lower_bound(date);

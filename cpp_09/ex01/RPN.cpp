@@ -94,23 +94,21 @@ static std::string rpn_error(const char *msg, const char *start, size_t error_in
 // stack: pila que contiene los operandos
 // Nota: se usa if-else en lugar de unordered_map porque no está permitido en el estándar C++98
 static void _action(const char *&index, std::stack<int> &stack) {
-    // Si es un dígito, parsea el número (máximo 9 dígitos)
+    // CAMBIO: Solo acepta un único dígito (0-9), no permite números de múltiples dígitos
+    // Si es un dígito, lo convierte a entero y lo coloca en la pila
     if (isdigit(*index)) {
-        int num = 0;
-        int digit_count = 0;
-        // Convierte los dígitos consecutivos a un número entero
-        while (isdigit(*index) && digit_count < 9) {
-            num = num * 10 + (*index - '0');
-            index++;
-            digit_count++;
-        }
-        // Si hay más de 9 dígitos, lanza un error
+        int num = *index - '0';  // Convierte el carácter dígito a entero (0-9)
+        index++;  // Avanza al siguiente carácter
+        
+        // CAMBIO: Verifica que después del dígito haya un espacio o el final del string
+        // Si hay otro dígito consecutivo, lanza un error (no permite números de múltiples dígitos)
         if (isdigit(*index)) {
-            throw std::runtime_error("number too long (max 9 digits)");
+            throw std::runtime_error("only single digits (0-9) are allowed");
         }
+        
         // Coloca el número en la pila
         stack.push(num);
-        return; // Retorna sin incrementar index (ya se incrementó en el while)
+        return; // Retorna sin incrementar index (ya se incrementó arriba)
     }
 
     // Procesa operadores binarios

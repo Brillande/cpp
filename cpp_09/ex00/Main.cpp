@@ -1,5 +1,29 @@
 #include "BitcoinExchange.hpp"
 #include <fstream>
+#include <iomanip>
+#include <sstream>
+
+// Función auxiliar para formatear un número eliminando ceros finales innecesarios
+// Usa double para mantener precisión con números grandes
+static std::string format_number(double num) {
+    std::ostringstream oss;
+    oss << std::fixed << num;
+    std::string str = oss.str();
+    
+    // Elimina ceros finales después del punto decimal
+    size_t pos = str.find('.');
+    if (pos != std::string::npos) {
+        // Elimina ceros desde el final
+        while (str.size() > pos + 1 && str[str.size() - 1] == '0') {
+            str.erase(str.size() - 1);
+        }
+        // Si solo queda el punto decimal, elimínalo también
+        if (str[str.size() - 1] == '.') {
+            str.erase(str.size() - 1);
+        }
+    }
+    return str;
+}
 
 // Patrón regex para parsear líneas del archivo de wallet del usuario
 // Formato esperado: fecha | cantidad (ejemplo: "2024-01-01 | 1.5")
@@ -18,10 +42,10 @@ static void compute_line(const std::string &line, BitcoinExchange &market,
         // Crea un objeto Date desde el primer grupo (fecha)
         Date       date(matches[1]);
         // Obtiene el precio de Bitcoin para esa fecha (precio histórico más cercano)
-        float      price = market.getBtcPrice(date);
+        double      price = market.getBtcPrice(date);
 
-        // Convierte el segundo grupo (cantidad de Bitcoin) a float
-        float btc = strToType<float>(matches[2]);
+        // Convierte el segundo grupo (cantidad de Bitcoin) a double para mayor precisión
+        double btc = strToType<double>(matches[2]);
         // Valida que la cantidad sea positiva (no negativa)
         if (btc < 0)
             throw std::runtime_error("not a positive number.");
@@ -29,7 +53,8 @@ static void compute_line(const std::string &line, BitcoinExchange &market,
         if (btc > 1000)
             throw std::runtime_error("too large a number.");
         // Imprime el resultado: fecha => cantidad_bitcoin = valor_total_dolares
-        std::cerr << date << " => " << btc << " = " << btc * price << std::endl;
+        // Formatea los números eliminando ceros finales innecesarios
+        std::cerr << date << " => " << format_number(btc) << " = " << format_number(btc * price) << std::endl;
 
     }
     catch (const std::exception &e)
